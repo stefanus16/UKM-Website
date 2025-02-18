@@ -14,7 +14,7 @@
     //         $row = mysqli_fetch_assoc($result);
 
     //         // Verifikasi password
-    //         if (password_verify($password, $row['password'])) {
+    //         if (password_verify($password, $row['password']))    {
     //             // Jika login berhasil
     //             session_start();
     //             $_SESSION['idadmin'] = $row['idadmin'];
