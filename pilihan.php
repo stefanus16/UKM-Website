@@ -9,13 +9,13 @@
 <body>
     <div class="pilihan">
         <h2>Option</h2>
-        <form action="peserta.php" method="get">
+        <form action="input.php" method="get">
             <button type="submit">Pendaftaran Peserta</button>
         </form>
-        <form action="data.php" method="get">
+        <form action="datapeserta.php" method="get">
             <button type="submit">Data Peserta</button>
         </form>
-        <form action="login.php" method="get">
+        <form action="index.php" method="get">
             <button class="logout" type="submit">Log Out</button>
         </form>
     </div>

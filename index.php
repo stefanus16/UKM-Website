@@ -1,60 +1,57 @@
+<?php
+    include 'koneksi.php';
+
+    // Cek jika form dikirim
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Ambil data dari form login
+        $password = mysqli_real_escape_string($koneksi, $_POST['password']);
+
+        // Query untuk mendapatkan data admin berdasarkan password
+        $sql = "SELECT * FROM admin WHERE password = '$password'";
+        $result = mysqli_query($koneksi, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+
+            // Jika login berhasil
+            session_start();
+            $_SESSION['idadmin'] = $row['idadmin'];
+            $_SESSION['nim'] = $row['nim'];
+            $_SESSION['nama'] = $row['nama'];
+
+            echo "<script>alert('Login berhasil!'); window.location.href = 'pilihan.php';</script>";
+        } else {
+            // Jika password salah
+            echo "<script>alert('Password salah!'); window.location.href = 'index.php';</script>";
+        }
+    }
+?>
+
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absen Kehadiran</title>
     <link rel="stylesheet" href="stylelogin.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Login UKM Badminton</title>
 </head>
 <body>
 
     <div class="login-box">
-        <form id="absenForm" action="proses_kehadiran.php" method="post">
-            <h2>Absen Kehadiran</h2>
+        <form action="" method="post">
+            <h2>Login Pengurus</h2>
             <div class="input-box">
-                <label for="nim"></label>
-                <input type="text" id="nim" name="nim" placeholder="Masukkan NIM" required>
-                <button type="button" id="cekNIM">Cek NIM</button>
+                <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                <input type="password" id="password" name="password" required>
+                <label for="password">Password</label>
             </div>
-
-            <div class="input-box" id="namaField" style="display: none;">
-                <label for="nama"></label>
-                <input type="text" id="nama" name="nama" placeholder="Masukkan Nama">
-            </div>
-
-            <button type="submit" id="absenBtn" disabled>Absen</button>
+            <button type="submit">Login</button>
         </form>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $("#cekNIM").click(function() {
-                var nim = $("#nim").val();
-                if (nim === "") {
-                    alert("Masukkan NIM terlebih dahulu!");
-                    return;
-                }
-
-                $.ajax({
-                    url: "cek_nim.php",
-                    method: "POST",
-                    data: { nim: nim },
-                    success: function(response) {
-                        if (response === "found") {
-                            alert("NIM ditemukan. Silahkan tekan tombol Absen");
-                            $("#namaField").hide(); // Sembunyikan input nama
-                            $("#absenBtn").prop("disabled", false); // Aktifkan tombol absen
-                        } else {
-                            alert("NIM tidak ditemukan! Silakan masukkan nama.");
-                            $("#namaField").show(); // Tampilkan input nama
-                            $("#absenBtn").prop("disabled", false); // Aktifkan tombol absen
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 </html>

@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $queryKehadiran = "INSERT INTO kehadiran (idpeserta, tanggalhadir, jumlahhadir) VALUES ('$idpeserta', '$tanggalHadir', 1)";
 
     if (mysqli_query($koneksi, $queryKehadiran)) {
-        echo "<script>alert('Kehadiran berhasil dicatat!'); window.location.href = 'index.php';</script>";
+        echo "<script>alert('Kehadiran berhasil dicatat!'); window.location.href = 'pilihan.php';</script>";
     } else {
         echo "<script>alert('Gagal mencatat kehadiran.'); window.history.back();</script>";
     }
